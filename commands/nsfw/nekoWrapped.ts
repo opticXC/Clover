@@ -30,6 +30,21 @@ export const nekoWrappedCommand: CreateApplicationCommand = {
 };
 
 export async function nekoWrappedRun(bot: Bot, interaction: Interaction) {
+  if (!(await bot.helpers.getChannel(interaction.channelId!.toString())).nsfw) {
+    await bot.helpers.sendInteractionResponse(
+      interaction.id,
+      interaction.token,
+      {
+        type: InteractionResponseTypes.ChannelMessageWithSource,
+        data: {
+          content: `command is only allowed in nsfw channels`,
+          flags: 64,
+        },
+      }
+    );
+    return;
+  }
+
   await bot.helpers.sendInteractionResponse(interaction.id, interaction.token, {
     type: InteractionResponseTypes.DeferredChannelMessageWithSource,
   });

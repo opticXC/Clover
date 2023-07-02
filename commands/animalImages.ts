@@ -5,8 +5,9 @@ import {
   Embed,
   Interaction,
   InteractionResponseTypes,
-  startHeartbeating,
 } from "https://deno.land/x/discordeno@18.0.1/mod.ts";
+
+const imageTypes = ["shibes", "cats", "birds"];
 
 export const imagesCommand: CreateApplicationCommand = {
   name: "images",
@@ -34,8 +35,7 @@ export async function imagesRun(bot: Bot, interaction: Interaction) {
   const image_type =
     interaction.data?.options?.flatMap((option) => {
       if (option.name == "type") return option.value;
-    })[0] ??
-    imagesCommand.options[0].choices[Math.round(Math.random() * 2)].value;
+    })[0] ?? imageTypes[Math.floor(Math.random() * imageTypes.length)];
 
   const fetch_res: string[0] = await fetch(
     `http://shibe.online/api/${image_type}?count=1`

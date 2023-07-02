@@ -4,12 +4,12 @@ import {
   DiscordReady,
 } from "https://deno.land/x/discordeno@18.0.1/mod.ts";
 
-import { serve } from "https://deno.land/std@0.192.0/http/server.ts";
-
 import { deleteCommands, guild_id } from "../deps.ts";
 import { pingCommand } from "../commands/ping.ts";
 import { imagesCommand } from "../commands/animalImages.ts";
 import { dictionaryCommand } from "../commands/dictionary.ts";
+import { nekoWrappedCommand } from "../commands/nsfw/nekoWrapped.ts";
+import { factCommand } from "../commands/fact.ts";
 
 export async function onReady(
   bot: Bot,
@@ -24,8 +24,8 @@ export async function onReady(
   await bot.helpers.createGuildApplicationCommand(pingCommand, guild_id);
   await bot.helpers.createGuildApplicationCommand(imagesCommand, guild_id);
   await bot.helpers.createGuildApplicationCommand(dictionaryCommand, guild_id);
-
-  await dashboard_temp(bot, readyEvent);
+  await bot.helpers.createGuildApplicationCommand(nekoWrappedCommand, guild_id);
+  await bot.helpers.createGuildApplicationCommand(factCommand, guild_id);
 }
 
 async function checkReset(bot: Bot) {
@@ -35,14 +35,4 @@ async function checkReset(bot: Bot) {
     console.log("deleted commands");
     Deno.exit(1);
   }
-}
-
-async function dashboard_temp(bot: Bot, readyEvent: DiscordReady) {
-  serve(async (req: Request) => {
-    return await new Response(
-      `Logged in as ${
-        readyEvent.user.username
-      } \nCurrent uptime${Deno.osUptime()}`
-    );
-  }, {});
 }

@@ -6,6 +6,8 @@ import {
 import { pingRun } from "../commands/ping.ts";
 import { imagesRun } from "../commands/animalImages.ts";
 import { dictionaryRun } from "../commands/dictionary.ts";
+import { factRun } from "../commands/fact.ts";
+import { nekoWrappedRun } from "../commands/nsfw/nekoWrapped.ts";
 
 export async function onInteraction(bot: Bot, interaction: Interaction) {
   if (interaction.type == InteractionTypes.ApplicationCommand) {
@@ -27,6 +29,13 @@ async function handleCommand(bot: Bot, interaction: Interaction) {
       break;
     case "getword":
       await dictionaryRun(bot, interaction);
+      break;
+
+    case "fact":
+      await factRun(bot, interaction);
+      break;
+    case "nsfw":
+      await nekoWrappedRun(bot, interaction);
       break;
     default:
       break;

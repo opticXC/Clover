@@ -1,4 +1,11 @@
-import { Intents, createBot, startBot, env_vars, bot_token } from "./deps.ts";
+import {
+  Intents,
+  createBot,
+  startBot,
+  env_vars,
+  bot_token,
+  startServe,
+} from "./deps.ts";
 import { onInteraction } from "./events/interaction.ts";
 import { onMessage } from "./events/message.ts";
 import { onReady } from "./events/ready.ts";
@@ -24,4 +31,5 @@ bot.events.ready = onReady;
 bot.events.messageCreate = onMessage;
 bot.events.interactionCreate = onInteraction;
 
+startServe();
 await startBot(bot);

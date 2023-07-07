@@ -7,9 +7,6 @@ export {
 import { load } from "https://deno.land/std@0.192.0/dotenv/mod.ts";
 import { Bot } from "https://deno.land/x/discordeno@18.0.1/bot.ts";
 
-// @deno-types="npm:@types/express"
-import express, { request } from "npm:express";
-
 export const env_vars = await load();
 
 export const bot_token = Deno.env.get("BOT_TOKEN") ?? env_vars["BOT_TOKEN"];
@@ -35,16 +32,4 @@ export async function deleteCommands(bot: Bot) {
   } catch (exception) {
     console.log(exception);
   }
-}
-
-const server = express();
-
-server.all("/", (req, res) => {
-  res.send("Running");
-});
-
-export function startServe() {
-  server.listen(() => {
-    console.log(`Server Ready`);
-  });
 }

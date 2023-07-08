@@ -8,6 +8,7 @@ import { imagesRun } from "../commands/animalImages.ts";
 import { dictionaryRun } from "../commands/dictionary.ts";
 import { factRun } from "../commands/fact.ts";
 import { nekoWrappedRun } from "../commands/nsfw/nekoWrapped.ts";
+import { randomRun } from "../commands/random.ts";
 
 export async function onInteraction(bot: Bot, interaction: Interaction) {
   if (interaction.type == InteractionTypes.ApplicationCommand) {
@@ -36,6 +37,9 @@ async function handleCommand(bot: Bot, interaction: Interaction) {
       break;
     case "nsfw":
       await nekoWrappedRun(bot, interaction);
+      break;
+    case "random":
+      await randomRun(bot, interaction);
       break;
     default:
       break;

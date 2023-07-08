@@ -22,6 +22,7 @@ export async function factRun(bot: Bot, interaction: Interaction) {
 
   const embed: Embed = {
     title: "Random useless fact",
+    color: 641757,
     fields: [
       {
         name: "Did You know?",

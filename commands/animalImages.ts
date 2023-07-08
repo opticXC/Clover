@@ -37,7 +37,7 @@ export async function imagesRun(bot: Bot, interaction: Interaction) {
       if (option.name == "type") return option.value;
     })[0] ?? imageTypes[Math.floor(Math.random() * imageTypes.length)];
 
-  const fetch_res: string[0] = await fetch(
+  const fetch_res = await fetch(
     `http://shibe.online/api/${image_type}?count=1`
   ).then(async (data) => await data.json());
 

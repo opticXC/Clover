@@ -2,12 +2,14 @@ import * as gelbooru_api from "npm:gelbooru-api";
 
 const gelbooru_client = new gelbooru_api.default();
 
-export async function get_random_post(tags: string): Promise<Post> {
+export async function get_random_post(
+  tags: string | undefined = undefined,
+): Promise<Post> {
   if (tags == undefined) {
     tags = "";
   }
 
-  const res = await gelbooru_client.getRandomPost(tags, 100, 0);
+  const res = await gelbooru_client.getRandomPost(tags, 10000, 0);
 
   return {
     id: res.id,
@@ -20,7 +22,7 @@ export async function get_random_post(tags: string): Promise<Post> {
 }
 
 export async function get_post(pid: number): Promise<Post> {
-    const res = await gelbooru_client.getPostById(pid);
+  const res = await gelbooru_client.getPostById(pid);
 
   return {
     id: res.id,

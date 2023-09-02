@@ -41,13 +41,14 @@ export async function dictionaryRun(bot: Bot, interaction: Interaction) {
     });
   }
 
-  const embed: Embed = {};
-
-  embed.title = dict_res.word;
-  embed.description = dict_res.phonetic;
-  embed.color = 641757;
-  embed.fields = meaningFields;
-  embed.footer = { text: dict_res.source_url[0] };
+  const embed: Embed = {
+      title: dict_res.word,
+      description: dict_res.phonetic,
+      color: 641757,
+      fields: meaningFields,
+      footer: { text: dict_res.source_url[0] },
+  };
+  
 
   await bot.helpers.sendFollowupMessage(interaction.token, {
     data: { embeds: [embed] },

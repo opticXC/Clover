@@ -3,7 +3,7 @@ import {
   AllowedMentionsTypes,
   Message,
 } from "https://deno.land/x/discordeno@18.0.1/mod.ts";
-import { catify_id, env_vars, guild_id } from "../deps.ts";
+import { catify_id, guild_id } from "../deps.ts";
 
 export async function onMessage(bot: Bot, message: Message) {
   if (message.isFromBot) return;

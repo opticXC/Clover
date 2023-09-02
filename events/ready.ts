@@ -10,6 +10,7 @@ import { imagesCommand } from "../commands/animalImages.ts";
 import { dictionaryCommand } from "../commands/dictionary.ts";
 import { factCommand } from "../commands/fact.ts";
 import { randomCommand } from "../commands/random.ts";
+import { nsfwCommand } from "../commands/nsfw/nsfw_command.ts";
 
 export async function onReady(
   bot: Bot,
@@ -26,6 +27,7 @@ export async function onReady(
   await bot.helpers.createGuildApplicationCommand(dictionaryCommand, guild_id);
   await bot.helpers.createGuildApplicationCommand(factCommand, guild_id);
   await bot.helpers.createGuildApplicationCommand(randomCommand, guild_id);
+  await bot.helpers.createGuildApplicationCommand(nsfwCommand, guild_id);
 }
 
 async function checkReset(bot: Bot) {

@@ -8,6 +8,7 @@ import { imagesRun } from "../commands/animalImages.ts";
 import { dictionaryRun } from "../commands/dictionary.ts";
 import { factRun } from "../commands/fact.ts";
 import { randomRun } from "../commands/random.ts";
+import { nsfwRun } from "../commands/nsfw/nsfw_command.ts";
 
 export async function onInteraction(bot: Bot, interaction: Interaction) {
   if (interaction.type == InteractionTypes.ApplicationCommand) {
@@ -35,6 +36,9 @@ async function handleCommand(bot: Bot, interaction: Interaction) {
       break;
     case "random":
       await randomRun(bot, interaction);
+      break;
+    case "nsfw":
+      await nsfwRun(bot,interaction);
       break;
     default:
       break;

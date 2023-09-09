@@ -49,8 +49,16 @@ export async function nsfwRun(bot: Bot, interaction: Interaction) {
   const post_opt = interaction.data?.options?.find(opt => opt.name == "postid" );
   const tags_opt = interaction.data?.options?.find(opt => opt.name=="tags");
 
-  var post;
-  var tags;
+  if (post_opt == undefined && tags_opt == undefined){
+    await bot.helpers.editOriginalInteractionResponse(interaction.token, {
+        content: "Neither, tags or postid provided",
+    });
+    return;
+  }
+
+
+  var post: Post;
+  var tags: string | undefined;
   
   if (post_opt) post = await get_post(Number(post_opt.value));
   else  {
@@ -59,7 +67,7 @@ export async function nsfwRun(bot: Bot, interaction: Interaction) {
   }
   
   if (post.tags.length > 40) {
-    post.tags = post.tags.padEnd(40, "...");
+    post.tags = post.tags.split(" ").slice(0,12).join(" ") + "... And More";
   }
 
   const embed: Embed = {

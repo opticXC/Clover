@@ -9,6 +9,7 @@ import { dictionaryRun } from "../commands/dictionary.ts";
 import { factRun } from "../commands/fact.ts";
 import { randomRun } from "../commands/random.ts";
 import { nsfwRun } from "../commands/nsfw/nsfw_command.ts";
+import { quoteRun } from "../commands/quote.ts";
 
 export async function onInteraction(bot: Bot, interaction: Interaction) {
   if (interaction.type == InteractionTypes.ApplicationCommand) {
@@ -39,6 +40,9 @@ async function handleCommand(bot: Bot, interaction: Interaction) {
       break;
     case "nsfw":
       await nsfwRun(bot,interaction);
+      break;
+    case "quote":
+      await quoteRun(bot, interaction);
       break;
     default:
       break;

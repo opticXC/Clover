@@ -26,11 +26,21 @@ async function catify(bot: Bot, message: Message) {
           message.id,
           "violates catify"
         );
-        await bot.helpers.sendMessage(message.channelId, {
+        const s_msg = await bot.helpers.sendMessage(message.channelId, {
           content: `<@${author.id}>, you have been catified nya~ \nyou have to use nya in your messages nya~`,
           allowedMentions: { parse: [AllowedMentionsTypes.UserMentions] },
         });
+        
+        // sleep for 7000 milliseconds
+        await new Promise((resolve) => setTimeout(resolve, 7000));
+
+        await bot.helpers.deleteMessage(
+          message.channelId,
+          s_msg.id,
+          "catified"
+        );
       }
+
     }
   });
 }

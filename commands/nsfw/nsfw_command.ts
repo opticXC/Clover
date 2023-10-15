@@ -50,37 +50,43 @@ export async function nsfwRun(bot: Bot, interaction: Interaction) {
   const tags_opt = interaction.data?.options?.find(opt => opt.name=="tags");
 
   if (post_opt == undefined && tags_opt == undefined){
-    await bot.helpers.editOriginalInteractionResponse(interaction.token, {
-        content: "Neither, tags or postid provided",
+    await bot.helpers.sendFollowupMessage(interaction.token, {
+        type: InteractionResponseTypes.DeferredChannelMessageWithSource,
+        data: {
+          content: "Neither, tags or postid provided",
+        }
     });
     return;
   }
 
 
   var post: Post;
-  var tags: string | undefined;
+  var tags: string | undefined = undefined;
   
   if (post_opt) post = await get_post(Number(post_opt.value));
   else  {
     if (tags_opt) tags = tags_opt.value?.toString();
-    post = await get_random_post(tags || undefined );
+    post = await get_random_post(tags || "explicit" );
   }
   
   if (post.tags.length > 40) {
     post.tags = post.tags.split(" ").slice(0,12).join(" ") + "... And More";
   }
 
-  const embed: Embed = {
-    title: `Main Tag Provided: ${tags || "None"} `,
-    description: `Post id: ${post.id}`,
-    fields: [
-      { name: "Complete Tags", value: `${post.tags}` },
-    ],
-    image: { url: post.file_url },
-  };
+  var res = "\`\`\`";
+  res += `Post Id: ${post.id}\n`;
+  if (tags != undefined){
+    res += `Provided Tags: ${tags}\n`;
+  }
+  res += `Complete Tags: ${post.tags}\n`;
+  res += "\`\`\`";
 
-  await bot.helpers.editOriginalInteractionResponse(interaction.token, {
-    content: "Fetched",
-    embeds: [embed],
+  res += `Source: ${new URL(post.file_url)}`;
+  await bot.helpers.sendFollowupMessage(interaction.token, {
+    type: InteractionResponseTypes.UpdateMessage,
+    data: {
+      content: res,
+
+    }
   });
 }

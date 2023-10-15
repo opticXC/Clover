@@ -29,7 +29,7 @@ export async function quoteRun(bot: Bot, interaction: Interaction){
 
     const quote:Quote = await (await fetch(API_URL)).json();
 
-    const res = `\`\`\`${quote.quote}\n\t - ${quote.character},${quote.anime}`;
+    const res = `\`\`\`${quote.quote}\n\t - ${quote.character},${quote.anime}\`\`\`  `;
     await bot.helpers.sendFollowupMessage(interaction.token,{
         type: InteractionResponseTypes.UpdateMessage,
         data: {
